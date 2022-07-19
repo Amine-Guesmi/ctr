@@ -1,0 +1,54 @@
+{% extends 'base_security.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<div class="page-header login-page header-filter" filter-color="black" style="background-image: url('../../assets/img/login.jpg'); background-size: cover; background-position: top center;">
+      <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+            <form class="form" method="post">
+              <div class="card card-login card-hidden">
+                <div class="card-header card-header-rose text-center">
+                  <h4 class="card-title">Login</h4>
+                </div>
+                <div class="card-body ">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+                  <span class="bmd-form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="material-icons">email</i>
+                        </span>
+                      </div>
+                      <input type="email" name="email" class="form-control" placeholder="Email..." value="{{ last_username }}">
+                    </div>
+                  </span>
+                  <span class="bmd-form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="material-icons">lock_outline</i>
+                        </span>
+                      </div>
+                      <input type="password" name="password" class="form-control" placeholder="Password...">
+                    </div>
+                  </span>
+                  <input type="hidden" name="_csrf_token"
+                        value="{{ csrf_token('authenticate') }}"
+                  >
+                </div>
+                <div class="card-footer justify-content-center">
+                  <button type="submit" class="btn btn-rose btn-link btn-lg">login</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+       {% include "element/security/footer.html.twig" %}
+    </div>
+{% endblock %}
