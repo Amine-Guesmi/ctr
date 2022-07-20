@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -35,6 +37,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 255)]
     private $cvFile;
+
+    #[ORM\OneToMany(mappedBy: 'User', targetEntity: Equipement::class)]
+    private $equipements;
+
+    #[ORM\OneToMany(mappedBy: 'User', targetEntity: Chauffeur::class)]
+    private $chauffeurs;
+
+    #[ORM\OneToMany(mappedBy: 'User', targetEntity: SessionRecrutement::class)]
+    private $sessionRecrutements;
+
+    #[ORM\OneToMany(mappedBy: 'User', targetEntity: Employer::class)]
+    private $employers;
+
+    public function __construct()
+    {
+        $this->equipements = new ArrayCollection();
+        $this->chauffeurs = new ArrayCollection();
+        $this->sessionRecrutements = new ArrayCollection();
+        $this->employers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -169,6 +191,126 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCvFile(string $cvFile): self
     {
         $this->cvFile = $cvFile;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Equipement>
+     */
+    public function getEquipements(): Collection
+    {
+        return $this->equipements;
+    }
+
+    public function addEquipement(Equipement $equipement): self
+    {
+        if (!$this->equipements->contains($equipement)) {
+            $this->equipements[] = $equipement;
+            $equipement->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEquipement(Equipement $equipement): self
+    {
+        if ($this->equipements->removeElement($equipement)) {
+            // set the owning side to null (unless already changed)
+            if ($equipement->getUser() === $this) {
+                $equipement->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Chauffeur>
+     */
+    public function getChauffeurs(): Collection
+    {
+        return $this->chauffeurs;
+    }
+
+    public function addChauffeur(Chauffeur $chauffeur): self
+    {
+        if (!$this->chauffeurs->contains($chauffeur)) {
+            $this->chauffeurs[] = $chauffeur;
+            $chauffeur->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChauffeur(Chauffeur $chauffeur): self
+    {
+        if ($this->chauffeurs->removeElement($chauffeur)) {
+            // set the owning side to null (unless already changed)
+            if ($chauffeur->getUser() === $this) {
+                $chauffeur->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SessionRecrutement>
+     */
+    public function getSessionRecrutements(): Collection
+    {
+        return $this->sessionRecrutements;
+    }
+
+    public function addSessionRecrutement(SessionRecrutement $sessionRecrutement): self
+    {
+        if (!$this->sessionRecrutements->contains($sessionRecrutement)) {
+            $this->sessionRecrutements[] = $sessionRecrutement;
+            $sessionRecrutement->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSessionRecrutement(SessionRecrutement $sessionRecrutement): self
+    {
+        if ($this->sessionRecrutements->removeElement($sessionRecrutement)) {
+            // set the owning side to null (unless already changed)
+            if ($sessionRecrutement->getUser() === $this) {
+                $sessionRecrutement->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Employer>
+     */
+    public function getEmployers(): Collection
+    {
+        return $this->employers;
+    }
+
+    public function addEmployer(Employer $employer): self
+    {
+        if (!$this->employers->contains($employer)) {
+            $this->employers[] = $employer;
+            $employer->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmployer(Employer $employer): self
+    {
+        if ($this->employers->removeElement($employer)) {
+            // set the owning side to null (unless already changed)
+            if ($employer->getUser() === $this) {
+                $employer->setUser(null);
+            }
+        }
 
         return $this;
     }
