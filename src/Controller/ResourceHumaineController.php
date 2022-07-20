@@ -14,5 +14,5 @@ class ResourceHumaineController extends AbstractController
         return $this->render('resource_humaine/index.html.twig', [
             'controller_name' => 'ResourceHumaineController',
         ]);
-    }
+    } 
 }
