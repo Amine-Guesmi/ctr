@@ -33,7 +33,7 @@ class SessionRecrutement
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'sessionRecrutements')]
     private $User;
 
-    #[ORM\OneToMany(mappedBy: 'SessionRecrutement', targetEntity: Candidature::class)]
+    #[ORM\OneToMany(mappedBy: 'SessionRecrutement', targetEntity: Candidature::class, fetch : "EAGER")]
     private $candidatures;
 
     public function __construct()

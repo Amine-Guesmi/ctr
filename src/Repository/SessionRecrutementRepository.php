@@ -16,6 +16,12 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SessionRecrutementRepository extends ServiceEntityRepository
 {
+
+    public function findAll()
+    {
+        return $this->findBy(array(), array('id' => 'DESC'));
+    }
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, SessionRecrutement::class);
