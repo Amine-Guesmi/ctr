@@ -34,8 +34,8 @@ class UserType extends AbstractType
             ->add('password',null,['label' => false])
             ->add('adresse',null,['label' => false])
             ->add('tel',NumberType::class,['label' => false])
-            ->add('image',FileType::class,['label' => false])
-            ->add('cvFile',FileType::class,['label' => false])
+            ->add('image',FileType::class,array('data_class' => null,'required' => false),['label' => false])
+            ->add('cvFile',FileType::class,array('data_class' => null,'required' => false),['label' => false])
         ;
     }
 
