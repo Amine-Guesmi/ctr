@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\SessionRecrutement;
 use App\Repository\CandidatureRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\SessionRecrutementRepository;
-use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ResourceHumaineController extends AbstractController
@@ -26,7 +27,7 @@ class ResourceHumaineController extends AbstractController
         $Sessions = $repo_session->findAll();
         $SessionsActive = $repo_session->findBy(['active' => 1]);
 
-        return $this->render('resource_humaine/CreationSession.html.twig', [
+        return $this->render('resource_humaine/ListerSessionRecrutement.html.twig', [
             'controller_name' => 'Gestion Session de Recrutement',
             'Sessions' => $Sessions,
             'NumberOfSessions' => count((array)$Sessions),
@@ -52,5 +53,21 @@ class ResourceHumaineController extends AbstractController
             return $this->redirectToRoute('gestion_session_recrutement');
         }
         
+    } 
+
+    #[Route('/resource/humaine/SessionRecrutement/create', name: 'create_session_recrutement')]
+    #[Route('/resource/humaine/SessionRecrutement/{id}/edit', name: 'edit_session_recrutement')]
+    public function CreationEditSessionRecrutement(Request $request, SessionRecrutement $sessionRecrutement = null, SessionRecrutementRepository $repo_session, CandidatureRepository $repo_candidat): Response
+    {
+        $Sessions = $repo_session->findAll();
+        $SessionsActive = $repo_session->findBy(['active' => 1]);
+
+        return $this->render('resource_humaine/formSessionRecrutement.html.twig', [
+            'controller_name' => 'Gestion Session de Recrutement',
+            'Sessions' => $Sessions,
+            'NumberOfSessions' => count((array)$Sessions),
+            'NumberOfCondidats' => count((array) $repo_candidat->findAll()),
+            'numberOfActiveSession' => count((array)$SessionsActive)
+        ]);
     } 
 }
