@@ -36,17 +36,17 @@ class GestionuserController extends AbstractController
                 $fichier = md5(uniqid()).'.'.$images->guessExtension();
                 $fichier2 = md5(uniqid()).'.'.$CV->guessExtension();
                 $CV->move(
-                    $this->getParameter('upload_cv'),
-                    $CV
+                    $this->getParameter('upload_image').'cvs',
+                    $fichier2
                 );
-                $images->move($this->getParameter('upload_image'),$fichier);
-                $Utilisateurs->setUrl($fichier);
-                $Utilisateurs->setCV($fichier2);
+                $images->move($this->getParameter('upload_image').'images',$fichier);
+                $Utilisateurs->setImage($fichier);
+                $Utilisateurs->setCvFile($fichier2);
 
             $this->getDoctrine()->getManager()->persist($Utilisateurs);
             $this->getDoctrine()->getManager()->flush();   
             
-            return $this->redirectToRoute('Utilisateurs');
+            return $this->redirectToRoute('app_gestionuser');
         }
         return $this->render('gestionuser/ajouterutilisateur.html.twig', [
             'controller_name' => 'GestionuserController',
@@ -55,8 +55,8 @@ class GestionuserController extends AbstractController
     }
     #[Route('/gestionuser/modifierutilisateur/{id}', name: 'ModifierUser')]
     public function ModifierUser(User $User, Request $req,int $id)
-{   $User->setImage(new File($this->getParameter('upload_image')./*$User->getImage()*/'1.png'));
-    $User->setCvFile(new File($this->getParameter('upload_cv')./*$User->getCvFile()*/'1.png'));
+{   $User->setImage(new File($this->getParameter('upload_image').'images/'.$User->getImage()));
+    $User->setCvFile(new File($this->getParameter('upload_image').'cvs/'.$User->getCvFile()));
         $formedit = $this->createForm(UserType::class, $User);
         $formedit->handleRequest($req);
         if($formedit->isSubmitted() && $formedit->isValid()){
@@ -71,14 +71,13 @@ class GestionuserController extends AbstractController
         ]);
     }
     #[Route('/gestionuser/deleteutilisateur/{id}', name: 'deleteutilisateur')]
-    public function delete(Request $request, User $User): Response
-    {
-     
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($User);
-            $entityManager->flush();
-       
-
+    public function delete(Request $request, $id): Response
+    { $em = $this->getDoctrine()->getManager();
+        $User = $em
+            ->getRepository(User::class)
+            ->find($id);
+        $em->remove($User);
+        $em->flush();
         return $this->redirectToRoute('app_gestionuser');
     }
     public function AjoutUtilisateurFORM(Request $req)
