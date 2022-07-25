@@ -1,0 +1,151 @@
+{% extends 'base_dashbord.html.twig' %}
+
+{% block title %}Gestion Chauffeur
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+	<div class="col-lg-4 col-md-6 col-sm-6">
+			
+		</div>
+		<div class="col-lg-4 col-md-6 col-sm-6">
+			<div class="card card-stats">
+				<div class="card-header card-header-warning card-header-icon">
+					<div class="card-icon">
+						<i class="material-icons">equalizer</i>
+					</div>
+					<p class="card-category">Voyages effectués</p>
+					<h3 class="card-title">184</h3>
+				</div>
+				<div class="card-footer">
+					<div class="stats">
+						<i class="material-icons text-danger">warning</i>
+						<a href="#pablo">Get More Space...</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+    <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-rose card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">assignment</i>
+                  </div>
+                  <h4 class="card-title">Chauffeur</h4>
+                </div>
+                <div class="card-body">
+                <div class="card-header card-header-rose card-header-icon">
+					<a href="{{path('AjouterChauffeur')}}" style="color:white;">
+						<div class="card-icon" style="float:right;cursor:pointer;">
+							<i class="fa fa-plus"></i><i class="fa fa-truck"></i>
+						</div>
+
+						<h4 class="card-title"></h4>
+					</a>
+				</div>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+								<tr>
+									<th>Nom</th>
+									<th>Prenom</th>
+									<th>Telephone</th>
+									<th>Image</th>
+                                     <th>User</th>
+									<th class="disabled-sorting text-right">Actions</th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th>Nom</th>
+									<th>Prenom</th>
+									<th>Telephone</th>
+									<th>Image</th>
+                                    <th>User</th>
+									<th class="text-right">Actions</th>
+								</tr>
+							</tfoot>
+                      <tbody>
+                       {% for U in ChauffeursList | sort((a, b) => a.id <=> b.id)%}
+
+									<tr>
+										<td>{{U.nom}}</td>
+										<td>{{U.prenom}}</td>
+										<td>{{U.tel}}</td>
+										<td>{{U.image}}</td>
+										<td>{{U.User}}</td>
+										<td class="text-right">
+											<a  href="gestionuser/modifierutilisateur/{{U.id}}" class="btn btn-link btn-info btn-just-icon like">
+												<i class="material-icons">edit</i>
+											</a>
+											<a href="gestionuser/deleteutilisateur/{{U.id}}"class="btn btn-link btn-danger btn-just-icon remove">
+												<i class="material-icons" >delete</i>
+											</a>
+										</td>
+                                        <td class="td-actions text-right">
+                            <a  href="gestionuser/modifierutilisateur/{{U.id}}" class="btn btn-success btn-round" data-original-title="" title="">
+                              <i class="material-icons">edit</i>
+                            </a>
+                            <a href="gestionuser/deleteutilisateur/{{U.id}}" class="btn btn-danger btn-round" data-original-title="" title="">
+                              <i class="material-icons">close</i>
+                            </a>
+                          </td>
+									</tr>
+						{% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+				
+				
+	{% endblock %}
+
+	{% block script %}
+		<script>
+			$(document).ready(function () {
+$('#datatableEmployer').DataTable({
+"pagingType": "full_numbers",
+"lengthMenu": [
+[
+10, 25, 50, -1
+],
+[
+10, 25, 50, "All"
+]
+],
+responsive: true,
+language: {
+search: "_INPUT_",
+searchPlaceholder: "Search records"
+}
+});
+
+var table = $('#datatableEmployer').DataTable();
+
+// Edit record
+table.on('click', '.edit', function () {
+$tr = $(this).closest('tr');
+var data = table.row($tr).data();
+alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+});
+
+// Delete a record
+table.on('click', '.remove', function (e) {
+$tr = $(this).closest('tr');
+table.row($tr).remove().draw();
+e.preventDefault();
+});
+
+// Like record
+table.on('click', '.like', function () {
+alert('You clicked on Like button');
+});
+});
+		</script>
+
+	{% endblock %}
