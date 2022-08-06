@@ -46,4 +46,30 @@ class GestionchauffeurController extends AbstractController
             'formajoutchauffeur' => $form->createView()
         ]);
     }
+    #[Route('/gestionchauffeur/modifierchauffeur/{id}', name: 'ModifierChauffeur')]
+    public function ModifierChauffeur(Chauffeur $Chauffeur, Request $req,int $id)
+{   $Chauffeur->setImage(new File($this->getParameter('upload_image').'images/'.$Chauffeur->getImage()));
+        $formedit = $this->createForm(ChauffeurType::class, $Chauffeur);
+        $formedit->handleRequest($req);
+        if($formedit->isSubmitted() && $formedit->isValid()){
+            $this->getDoctrine()->getManager()->persist($Chauffeur); 
+            $this->getDoctrine()->getManager()->flush(); 
+              
+        }
+        return $this->render('gestionchauffeur/modifierchauffeur.html.twig', [
+            'controller_name' => 'GestionChauffeurController',
+            'formedituser' => $formedit->createView(),
+            'id' => $Chauffeur->getId()
+        ]);
+    }
+    #[Route('/gestionchauffeur/deletechauffeur/{id}', name: 'deletechauffeur')]
+    public function delete(Request $request, $id): Response
+    { $em = $this->getDoctrine()->getManager();
+        $Chauffeur = $em
+            ->getRepository(Chauffeur::class)
+            ->find($id);
+        $em->remove($Chauffeur);
+        $em->flush();
+        return $this->redirectToRoute('app_gestionchauffeur');
+    }
 }
