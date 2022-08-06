@@ -11,40 +11,24 @@
 
 		</div>
 		<div class="col-md-6">
-			{{ form_start(formajoutequipement,{'action':'/Equipements/ajouterequipement'})}}
+			{{ form_start(formajoutdepartement,{'action':'/Departements/ajouterdepartement'})}}
 			<div class="card ">
 				<div class="card-header card-header-rose card-header-icon">
 					<div class="card-icon">
 						<i class="fa fa-user"></i>
 					</div>
-					<h4 class="card-title">Ajouter Equipement</h4>
+					<h4 class="card-title">Ajouter Departement</h4>
 				</div>
 				<div class="card-body ">
 					<div class="form-group bmd-form-group">
 						<label for="Name" class="bmd-label-floating">
 							libelle *</label>
-						{{ form_row(formajoutequipement.libelle, {'attr' : {'class':'form-control','required':'true'}}) }}
+						{{ form_row(formajoutdepartement.libelle, {'attr' : {'class':'form-control','required':'true'}}) }}
 					</div>
-        
-					<div class="form-group bmd-form-group">
-                      <label for="image" class="bmd-label-floating">
-							Image *</label>
-					<div class="fileinput fileinput-new text-center" data-provides="fileinput">
-						<div class="fileinput-new thumbnail">
-							<img src="../../assets/img/image_placeholder.jpg" alt="image">
-						</div>
-						<div class="fileinput-preview fileinput-exists thumbnail"></div>
-						<div>
-							<span class="btn btn-rose btn-round btn-file">
-								{{ form_row(formajoutequipement.image, {'attr' : {'required':'true','name':'image'}}) }}
-							</span>
-						</div>
-					</div>
-                    </div>
 					<div class="form-group bmd-form-group">
 						<label for="date" class="bmd-label-floating">
 							Date Ajout *</label>
-						{{ form_row(formajoutequipement.dateAjout, {'attr' : {'class':'form-control','required':'true'}}) }}
+						{{ form_row(formajoutdepartement.dataAjout, {'attr' : {'class':'form-control','required':'true'}}) }}
 					</div>
 					<div class="category form-category">* Obligatoire</div>
 				</div>
@@ -55,7 +39,7 @@
 						Ajouter</button>
 				</div>
 			</div>
-			{{ form_end(formajoutequipement)}}
+			{{ form_end(formajoutdepartement)}}
 		</div>
 
 

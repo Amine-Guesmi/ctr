@@ -1,6 +1,6 @@
 {% extends 'base_dashbord.html.twig' %}
 
-{% block title %}Gestion Equipement
+{% block title %}Gestion Departements
 {% endblock %}
 
 {% block body %}
@@ -84,9 +84,9 @@
 					<h4 class="card-title">DataTables.net</h4>
 				</div>
 				<div class="card-header card-header-primary card-header-icon">
-					<a href="{{path('AjouterEquipement')}}" style="color:white;">
+					<a href="{{path('AjouterDepartement')}}" style="color:white;">
 						<div class="card-icon" style="float:right;cursor:pointer;">
-							<i class="fa fa-plus"></i><i class="fa fa-dropbox"></i>
+							<i class="fa fa-plus"></i><i class="fa fa-building"></i>
 						</div>
 						<h4 class="card-title"></h4>
 					</a>
@@ -99,39 +99,29 @@
 						<table id="datatableEmployer" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
 							<thead>
 								<tr>
-									<th>labelle</th>
-									<th>image</th>
+									<th>Libelle</th>
 									<th>DateAjout</th>
 									<th class="disabled-sorting text-right">Actions</th>
 								</tr>
 							</thead>
 							<tfoot>
 								<tr>
-								    <th>labelle</th>
-									<th>image</th>
+									<th>Libelle</th>
 									<th>DateAjout</th>
 									<th class="text-right">Actions</th>
 								</tr>
 							</tfoot>
 							<tbody>
-								{% for E in EquipementsList | sort((a, b) => a.id <=> b.id)%}
+								{% for D in DepartementsList | sort((a, b) => a.id <=> b.id)%}
 
 									<tr>
-										<td>{{E.liblelle}}</td>
-                                        <td>
-											<div class="fileinput fileinput-new text-center" data-provides="fileinput" style="max-width: 15%;">
-												<div class="fileinput-new thumbnail img-circle">
-													<img src="../../images/1.png" alt="...">
-												</div>
-												<div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
-											</div>
-										</td>
-										<td>{{E.dateAjout}}</td>
+										<td>{{D.libelle}}</td>
+										<td>{{D.dataAjout}}</td>
 										<td class="text-right">
-											<a  href="gestionuser/modifierequipement/{{U.id}}" class="btn btn-link btn-info btn-just-icon like">
+											<a  href="gestionuser/modifierdepartement/{{D.id}}" class="btn btn-link btn-info btn-just-icon like">
 												<i class="material-icons">edit</i>
 											</a>
-											<a href="gestionuser/deleteequipement/{{U.id}}"class="btn btn-link btn-danger btn-just-icon remove">
+											<a href="gestionuser/deletedepartement/{{D.id}}"class="btn btn-link btn-danger btn-just-icon remove">
 												<i class="material-icons" >delete</i>
 											</a>
 										</td>
