@@ -1,6 +1,6 @@
 {% extends 'base_dashbord.html.twig' %}
 
-{% block title %}Ajouter Departement
+{% block title %}Ajouter Equipement
 {% endblock %}
 
 {% block body %}
@@ -11,24 +11,29 @@
 
 		</div>
 		<div class="col-md-6">
-			{{ form_start(formajoutdepartement,{'action':'/Departements/ajouterdepartement'})}}
+			{{ form_start(formeditprime,{'action':'/Primes/modifierprime'})}}
 			<div class="card ">
 				<div class="card-header card-header-rose card-header-icon">
 					<div class="card-icon">
 						<i class="fa fa-user"></i>
 					</div>
-					<h4 class="card-title">Ajouter Departement</h4>
+					<h4 class="card-title">Modifier Prime</h4>
 				</div>
 				<div class="card-body ">
 					<div class="form-group bmd-form-group">
 						<label for="Name" class="bmd-label-floating">
-							libelle *</label>
-						{{ form_row(formajoutdepartement.libelle, {'attr' : {'class':'form-control','required':'true'}}) }}
+							Prime *</label>
+						{{ form_row(formeditprime.prime, {'attr' : {'class':'form-control','required':'true'}}) }}
+					</div>
+                    <div class="form-group bmd-form-group">
+						<label for="text" class="bmd-label-floating">
+							 Description *</label>
+						{{ form_row(formeditprime.description, {'attr' : {'class':'form-control','required':'true'}}) }}
 					</div>
 					<div class="form-group bmd-form-group">
 						<label for="date" class="bmd-label-floating">
 							Date Ajout *</label>
-						{{ form_row(formajoutdepartement.dataAjout, {'attr' : {'class':'form-control','required':'true'}}) }}
+						{{ form_row(formeditprime.dateAjout, {'attr' : {'class':'form-control','required':'true'}}) }}
 					</div>
 					<div class="category form-category">* Obligatoire</div>
 				</div>
@@ -36,10 +41,10 @@
 					<div class="form-check mr-auto"></div>
 					<button type="submit" class="btn btn-rose">
 						<i class="fa fa-plus"></i>
-						Ajouter</button>
+						Modifier</button>
 				</div>
 			</div>
-			{{ form_end(formajoutdepartement)}}
+			{{ form_end(formeditprime)}}
 		</div>
 
 

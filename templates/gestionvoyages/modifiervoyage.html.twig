@@ -1,0 +1,62 @@
+{% extends 'base_dashbord.html.twig' %}
+
+{% block title %}Modifier Voyage
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-md-6">
+
+			<img src="{{asset('assets/img/newpersonel.png')}}" class="card">
+
+		</div>
+		<div class="col-md-6">
+			{{ form_start(formeditvoyage,{'action':'/Voyages/modifiervoyage'})}}
+			<div class="card ">
+				<div class="card-header card-header-rose card-header-icon">
+					<div class="card-icon">
+						<i class="fa fa-user"></i>
+					</div>
+					<h4 class="card-title">Modifier Voyage</h4>
+				</div>
+				<div class="card-body ">
+					<div class="form-group bmd-form-group">
+						<label for="pointDebut" class="bmd-label-floating">
+							pointDebut *</label>
+						{{ form_row(formeditvoyage.pointDebut, {'attr' : {'class':'form-control','required':'true'}}) }}
+					</div>
+                    <div class="form-group bmd-form-group">
+						<label for="pointFinale" class="bmd-label-floating">
+							 pointFinale *</label>
+						{{ form_row(formeditvoyage.pointFinale, {'attr' : {'class':'form-control','required':'true'}}) }}
+					</div>
+					<div class="form-group bmd-form-group">
+						<label for="dateDebut" class="bmd-label-floating">
+							dateDebut *</label>
+						{{ form_row(formeditvoyage.dateDebut, {'attr' : {'class':'form-control','required':'true'}}) }}
+					</div>
+					<div class="form-group bmd-form-group">
+						<label for="dateFinale" class="bmd-label-floating">
+							dateFinale *</label>
+						{{ form_row(formeditvoyage.dateFinale, {'attr' : {'class':'form-control','required':'true'}}) }}
+					</div>
+                    <div class="form-group bmd-form-group">
+						<label for="Chauffeur" class="bmd-label-floating">
+							Chauffeur *</label>
+						{{ form_row(formeditvoyage.Chauffeur, {'attr' : {'class':'form-control','required':'true'}}) }}
+					</div>
+					<div class="category form-category">* Obligatoire</div>
+				</div>
+				<div class="card-footer text-right">
+					<div class="form-check mr-auto"></div>
+					<button type="submit" class="btn btn-rose">
+						<i class="fa fa-plus"></i>
+						Modifier</button>
+				</div>
+			</div>
+			{{ form_end(formeditvoyage)}}
+		</div>
+
+
+	</div>
+{% endblock %}
