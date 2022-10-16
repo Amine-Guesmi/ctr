@@ -13,8 +13,8 @@ class SecurityController extends AbstractController
 {
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils, UserPasswordHasherInterface $passwordHasher): Response
-    {
-        /*$user = new User();
+    {/*
+        $user = new User();
         $hashedPassword = $passwordHasher->hashPassword(
             $user,
             "96794628"

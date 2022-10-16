@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\UpdateUserType;
 class GestionuserController extends AbstractController
 {
 
@@ -87,8 +88,9 @@ class GestionuserController extends AbstractController
 {   $oldimage=$User->getImage();
     $oldcv=$User->getCvFile();
     $oldrole=$User->getRoles()[0];
+    $oldpassword=$User->getPassword();
 
-    $formedit = $this->createForm(UserType::class, $User);
+    $formedit = $this->createForm(UpdateUserType::class, $User);
     $formedit->handleRequest($req);
     if($formedit->isSubmitted() && $formedit->isValid()){
         $images = $formedit->get('image')->getData();
@@ -113,7 +115,10 @@ class GestionuserController extends AbstractController
             $User->setCvFile($oldcv);
         }
         $User->setRoles([$req->request->get("SelectUserRole")]);
-        
+        //
+        if($req->request->get("userpassword") != $oldrole){
+            $User->setPassword($req->request->get("userpassword"));
+        }
         $this->getDoctrine()->getManager()->persist($User);
         $this->getDoctrine()->getManager()->flush();   
         
