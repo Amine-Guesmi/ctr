@@ -112,13 +112,7 @@ class GestionuserController extends AbstractController
         else{
             $User->setCvFile($oldcv);
         }
-        //
-       /* if($oldrole != $User->getRoles()[0]){
-            $User->setRoles([$User->getRoles()[0]]);
-        }*/
-        //
-        dd($User->getRoles()[0]);
-        $User->setRoles([$User->getRoles()[0]]);
+        $User->setRoles([$req->request->get("SelectUserRole")]);
         
         $this->getDoctrine()->getManager()->persist($User);
         $this->getDoctrine()->getManager()->flush();   

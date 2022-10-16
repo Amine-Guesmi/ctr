@@ -22,7 +22,7 @@ class SecurityController extends AbstractController
         dd($hashedPassword);*/
 
         if ($this->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('app_resource_humaine');
+            return $this->redirectToRoute('gestion_session_recrutement');
         }
 
         // get the login error if there is one
