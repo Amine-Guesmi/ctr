@@ -55,8 +55,15 @@
 							Address *</label>
 						{{ form_row(formedituser.adresse, {'attr' : {'class':'form-control','required':'true'}}) }}
 					</div>
-          <div class="col-lg-5 col-md-6 col-sm-3">
-            {{ form_row(formedituser.roles, {'attr' : {'placeholder':'Choisire Role','class':'selectpicker ','data-style':'select-with-transition' ,'multiple':'', 'title':'Choose City', 'data-size':'7', 'tabindex':'-98'}}) }}
+          <div class="select" >
+		  <select name="Select" value={{oldrole}} id="OldRole">
+			<option value="ROLE_ADMIN">Administrateur</option>
+			<option value="ROLE_RESPONSABLE_RH">Responsable RH</option>
+			<option value="ROLE_RESPONSABLE_LOGISTIQUE">Responsable Logistique</option>
+			<option value="ROLE_RESPONSABLE_STOCK">Responsable Stock</option> 
+		  </select>
+		  <div class="col-lg-5 col-md-6 col-sm-3">
+		   {{ form_row(formedituser.roles, {'attr' : {'placeholder':'Choisire Role','class':'selectpicker ','data-style':'select-with-transition' ,'data-size':'7','hidden':'true'}}) }}
                           </div>
         
 					<div class="form-group bmd-form-group"></div>
@@ -64,24 +71,27 @@
 							Image *</label>
 					<div class="fileinput fileinput-new text-center" data-provides="fileinput">
 						<div class="fileinput-new thumbnail">
-							<img src="../../assets/img/image_placeholder.jpg" alt="image">
+							<img src="{{ asset ('/uploads/images/' ~ oldimage ) }}" alt="...">
 						</div>
 						<div class="fileinput-preview fileinput-exists thumbnail"></div>
 						<div>
 							<span class="btn btn-rose btn-round btn-file">
-								{{ form_row(formedituser.image, {'attr' : {'required':'true','name':'image'}}) }}
+								{{ form_row(formedituser.image, {'attr' : {'name':'image','hidden':'true'}}) }}
+								<span class="fileinput-new" name="image">Choisir Image</span>
 							</span>
 						</div>
 					</div>
           
 					<div class="fileinput fileinput-new text-center float-right" data-provides="fileinput">
 						<div class="fileinput-new thumbnail">
-							<img src="../../assets/img/image_placeholder.jpg" alt="cv">
+						<img class="text-white" src="{{ asset ('/uploads/cvs/' ~ oldcv ) }}">
+
 						</div>
 						<div class="fileinput-preview fileinput-exists thumbnail"></div>
 						<div><label for="image" class="bmd-label-floating">CV *</label>
-							<span class="btn btn-rose btn-round btn-file">
-								{{ form_row(formedituser.cvFile, {'attr' : {'required':'true','name':'cv'}}) }}
+							<span class="btn btn-rose btn-round btn-file">	
+							<span class="fileinput-new" name="cvFile">Choisir CV</span>
+								{{ form_row(formedituser.cvFile, {'attr' : {'name':'cvFile','hidden':'true'}}) }}
 							</span>
 						</div>
 					</div>

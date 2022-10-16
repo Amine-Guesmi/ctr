@@ -26,8 +26,20 @@ class GestionuserController extends AbstractController
 
         ///Statistiques
         foreach($UtilisateursList as $elem){
-            if($elem->getRoles()[0] === "ROLE_ADMIN")
+            if($elem->getRoles()[0] === "ROLE_ADMIN"){
                 $Nombre_Admin++;
+            }
+            if($elem->getRoles()[0] === "ROLE_RESPONSABLE_RH"){
+                $Nombre_RRH++;
+            }
+            if($elem->getRoles()[0] === "ROLE_RESPONSABLE_LOGISTIQUE"){
+                $Nombre_RLogistique++;
+            }
+            if($elem->getRoles()[0] === "ROLE_RESPONSABLE_STOCK"){
+                $Nombre_RS++;
+            }
+
+                
         }
         return $this->render('gestionuser/index.html.twig', [
             'controller_name' => 'GestionuserController',
@@ -72,19 +84,54 @@ class GestionuserController extends AbstractController
     }
     #[Route('/gestionuser/modifierutilisateur/{id}', name: 'ModifierUser')]
     public function ModifierUser(User $User, Request $req,int $id)
-{   $User->setImage(new File($this->getParameter('upload_image').'images/'.$User->getImage()));
-    $User->setCvFile(new File($this->getParameter('upload_image').'cvs/'.$User->getCvFile()));
-        $formedit = $this->createForm(UserType::class, $User);
-        $formedit->handleRequest($req);
-        if($formedit->isSubmitted() && $formedit->isValid()){
-            $this->getDoctrine()->getManager()->persist($User); 
-            $this->getDoctrine()->getManager()->flush(); 
-              
+{   $oldimage=$User->getImage();
+    $oldcv=$User->getCvFile();
+    $oldrole=$User->getRoles()[0];
+
+    $formedit = $this->createForm(UserType::class, $User);
+    $formedit->handleRequest($req);
+    if($formedit->isSubmitted() && $formedit->isValid()){
+        $images = $formedit->get('image')->getData();
+        $CV = $formedit->get('cvFile')->getData();
+        if($images != null){
+            $fichier = md5(uniqid()).'.'.$images->guessExtension();
+            $images->move($this->getParameter('upload_image').'images',$fichier);
+            $User->setImage($fichier);
         }
+        else{
+            $User->setImage($oldimage);
+        }
+        if($CV != null){
+            $fichier2 = md5(uniqid()).'.'.$CV->guessExtension();
+            $CV->move(
+                $this->getParameter('upload_image').'cvs',
+                $fichier2
+            );
+            $User->setCvFile($fichier2);
+        }
+        else{
+            $User->setCvFile($oldcv);
+        }
+        //
+       /* if($oldrole != $User->getRoles()[0]){
+            $User->setRoles([$User->getRoles()[0]]);
+        }*/
+        //
+        dd($User->getRoles()[0]);
+        $User->setRoles([$User->getRoles()[0]]);
+        
+        $this->getDoctrine()->getManager()->persist($User);
+        $this->getDoctrine()->getManager()->flush();   
+        
+        return $this->redirectToRoute('app_gestionuser');
+    }
         return $this->render('gestionuser/modifierutilisateur.html.twig', [
             'controller_name' => 'GestionUserController',
             'formedituser' => $formedit->createView(),
-            'id' => $User->getId()
+            'id' => $User->getId(),
+            'oldimage'=>$oldimage,
+            'oldcv'=>$oldcv,
+            'oldrole'=>$oldrole
         ]);
     }
     #[Route('/gestionuser/deleteutilisateur/{id}', name: 'deleteutilisateur')]
@@ -93,6 +140,10 @@ class GestionuserController extends AbstractController
         $User = $em
             ->getRepository(User::class)
             ->find($id);
+        if($User->getRoles()[0] === "ROLE_ADMIN"){
+            $this->addFlash('error', 'Vous ne pouvez pas supprimer un administrateur');
+            return $this->redirectToRoute('app_gestionuser');
+        }
         $em->remove($User);
         $em->flush();
         return $this->redirectToRoute('app_gestionuser');

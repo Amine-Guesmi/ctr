@@ -23,10 +23,10 @@ class UserType extends AbstractType
                 'entry_options'  => [
                     'choices' => [
                         "Roles" => [
-                            "Admin" => "Admin",
-                            "Responsable Logistique" => "Responsable Logistique",
-                            "Responsable Resources Humain" => "Responsable Resources Humain",
-                            "Responsable Stock" => "Responsable Stock",
+                            "Admin" => "ROLE_ADMIN",
+                            "Responsable Logistique" => "ROLE_RESPONSABLE_RH",
+                            "Responsable Resources Humain" => "ROLE_RESPONSABLE_LOGISTIQUE",
+                            "Responsable Stock" => "ROLE_RESPONSABLE_STOCK",
                         ]
                     ]
                 ]
@@ -34,8 +34,8 @@ class UserType extends AbstractType
             ->add('password',null,['label' => false])
             ->add('adresse',null,['label' => false])
             ->add('tel',NumberType::class,['label' => false])
-            ->add('image',FileType::class,array('data_class' => null,'required' => false),['label' => false])
-            ->add('cvFile',FileType::class,array('data_class' => null,'required' => false),['label' => false])
+            ->add('image',FileType::class,array('data_class' => null,'required' => false,'mapped'=> false),['label' => false])
+            ->add('cvFile',FileType::class,array('data_class' => null,'required' => false,'mapped'=> false),['label' => false])
         ;
     }
 

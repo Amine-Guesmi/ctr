@@ -9,7 +9,7 @@
 			<div class="card card-stats">
 				<div class="card-header card-header-warning card-header-icon">
 					<div class="card-icon">
-						<i class="material-icons">weekend</i>
+						<i class="material-icons">supervised_user_circle</i>
 					</div>
 					<p class="card-category">Admin</p>
 					<h3 class="card-title">{{Nombre_Admin}}</h3>
@@ -26,14 +26,14 @@
 			<div class="card card-stats">
 				<div class="card-header card-header-rose card-header-icon">
 					<div class="card-icon">
-						<i class="material-icons">equalizer</i>
+						<i class="material-icons">account_circle</i>
 					</div>
 					<p class="card-category">Responsable Logistique</p>
 					<h3 class="card-title">{{Nombre_RLogistique}}</h3>
 				</div>
 				<div class="card-footer">
 					<div class="stats">
-						<i class="material-icons">local_offer</i>
+						<i class="material-icons">person_search</i>
 						Tracked from Google Analytics
 					</div>
 				</div>
@@ -43,7 +43,7 @@
 			<div class="card card-stats">
 				<div class="card-header card-header-success card-header-icon">
 					<div class="card-icon">
-						<i class="material-icons">store</i>
+						<i class="material-icons">person_search</i>
 					</div>
 					<p class="card-category">Responsable Resource Humain</p>
 					<h3 class="card-title">{{Nombre_RRH}}</h3>
@@ -60,10 +60,10 @@
 			<div class="card card-stats">
 				<div class="card-header card-header-info card-header-icon">
 					<div class="card-icon">
-						<i class="fa fa-twitter"></i>
+						<i class="material-icons">assignment_ind</i>
 					</div>
 					<p class="card-category">Responsable Stock</p>
-					<h3 class="card-title">{{Nombre_Admin}}</h3>
+					<h3 class="card-title">{{Nombre_RS}}</h3>
 				</div>
 				<div class="card-footer">
 					<div class="stats">
@@ -135,12 +135,11 @@
 												<div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
 											</div>
 										</td>
-										<td ><div class="fileinput fileinput-new text-center" data-provides="fileinput" >
-												<div class="fileinput-new thumbnail img-circle">
-													<img src="{{ asset ('/uploads/cvs/' ~ U.cvFile ) }}" alt="...">
-												</div>
-												<div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
-											</div></td>
+										<td >
+											
+											<button class="btn btn-success "><a class="text-white" href="{{ asset ('/uploads/cvs/' ~ U.cvFile ) }}" download="{{U.cvFile}}">Download</a></button>
+											
+											</td>
 										<td class="text-right">
 											<a  href="gestionuser/modifierutilisateur/{{U.id}}" class="btn btn-link btn-info btn-just-icon like">
 												<i class="material-icons">edit</i>
@@ -191,17 +190,6 @@ var data = table.row($tr).data();
 alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
 });
 
-// Delete a record
-table.on('click', '.remove', function (e) {
-$tr = $(this).closest('tr');
-table.row($tr).remove().draw();
-e.preventDefault();
-});
-
-// Like record
-table.on('click', '.like', function () {
-alert('You clicked on Like button');
-});
 });
 		</script>
 
