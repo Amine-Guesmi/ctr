@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\SessionRecrutement;
+use App\Form\SessionRecrutementType;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CandidatureRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -57,17 +59,36 @@ class ResourceHumaineController extends AbstractController
 
     #[Route('/resource/humaine/SessionRecrutement/create', name: 'create_session_recrutement')]
     #[Route('/resource/humaine/SessionRecrutement/{id}/edit', name: 'edit_session_recrutement')]
-    public function CreationEditSessionRecrutement(Request $request, SessionRecrutement $sessionRecrutement = null, SessionRecrutementRepository $repo_session, CandidatureRepository $repo_candidat): Response
+    public function CreationEditSessionRecrutement(Request $request, SessionRecrutement $sessionRecrutement = null, SessionRecrutementRepository $repo_session, CandidatureRepository $repo_candidat, EntityManagerInterface $entityManager): Response
     {
         $Sessions = $repo_session->findAll();
         $SessionsActive = $repo_session->findBy(['active' => 1]);
 
+        if(!$sessionRecrutement)
+            $sessionRecrutement = new SessionRecrutement();
+
+        $form = $this->createForm(SessionRecrutementType::class, $sessionRecrutement);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            if(!$sessionRecrutement->getId()){
+                $sessionRecrutement->setDateDebut(new \DateTime());
+            }
+            $entityManager->persist($sessionRecrutement);
+            $entityManager->flush();
+
+            return $this->redirectToRoute("gestion_session_recrutement");
+        }
+
         return $this->render('resource_humaine/formSessionRecrutement.html.twig', [
-            'controller_name' => 'Gestion Session de Recrutement',
             'Sessions' => $Sessions,
             'NumberOfSessions' => count((array)$Sessions),
             'NumberOfCondidats' => count((array) $repo_candidat->findAll()),
-            'numberOfActiveSession' => count((array)$SessionsActive)
+            'numberOfActiveSession' => count((array)$SessionsActive),
+            'formSession' =>  $form->createView(),
+            'controller_name' => ($sessionRecrutement->getId()?"Modifier Session de Recrutement":"Ajouter Session de Recrutement"),
+            'icon' => ($sessionRecrutement->getId()?"fa-edit":"fa-plus"),
+            'textButton' => ($sessionRecrutement->getId()?" Modifier":" Ajouter"),
         ]);
     } 
 }

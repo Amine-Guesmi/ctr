@@ -43,13 +43,55 @@
               <i class="material-icons">store</i>
             </div>
             <p class="card-category">Moyenne des candidats</p>
-            <h3 class="card-title">{{ NumberOfCondidats / NumberOfSessions }}</h3>
+            <h3 class="card-title">{{ (NumberOfCondidats / NumberOfSessions)|number_format(2)}}</h3>
           </div>
           <div class="card-footer">
             <div class="stats">
               <i class="material-icons">date_range</i> Last 24 Hours
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="card ">
+        <div class="card-header card-header-rose card-header-text">
+          <div class="card-text">
+            <h4 class="card-title">{{ controller_name }}</h4>
+          </div>
+        </div>
+        <div class="card-body ">
+          {{ form_start(formSession) }}
+            <div class="row">
+              <label class="col-sm-2 col-form-label">Nom du Session</label>
+              <div class="col-sm-10">
+                <div class="form-group bmd-form-group">
+                  {{ form_row(formSession.nomSession) }}
+                  <span class="bmd-help">.</span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label class="col-sm-2 col-form-label">Description</label>
+              <div class="col-sm-10">
+                <div class="form-group bmd-form-group">
+                  {{ form_row(formSession.description) }}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label class="col-sm-2 col-form-label">Active</label>
+              <div class="col-sm-1">
+                <div class="form-group bmd-form-group">
+                  {{ form_row(formSession.active) }}
+                </div>
+              </div>
+            </div>
+            <div class="card-footer text-right">
+						  <div class="form-check mr-auto"></div>
+						  <button type="submit" class="btn btn-rose"><i class="fa {{ icon }}"></i> {{ textButton }}</button>
+					  </div>
+          {{ form_end(formSession) }}
         </div>
       </div>
     </div>

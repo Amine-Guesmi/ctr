@@ -55,8 +55,8 @@ class GestionemployeesController extends AbstractController
         //Modifier
         #[Route('/Employers/modifieremployee/{id}', name: 'ModifierEmployer')]
         public function ModifierEmployer(Employer $Employer, Request $req,int $id)
-    {      $Employer->setImage(new File($this->getParameter('upload_image').'images/'.$User->getImage()));
-        $Employer->setCv(new File($this->getParameter('upload_image').'cvs/'.$User->getCv()));
+    {      $Employer->setImage(new File($this->getParameter('upload_image').'images/'.$Employer->getImage()));
+        $Employer->setCv(new File($this->getParameter('upload_image').'cvs/'.$Employer->getCv()));
             $formedit = $this->createForm(EmployeType::class, $Employer);
             $formedit->handleRequest($req);
             if($formedit->isSubmitted() && $formedit->isValid()){
