@@ -12,7 +12,7 @@
 						<i class="material-icons">weekend</i>
 					</div>
 					<p class="card-category">Admin</p>
-					<h3 class="card-title">184</h3>
+					<h3 class="card-title">{{Nombre_Admin}}</h3>
 				</div>
 				<div class="card-footer">
 					<div class="stats">
@@ -29,7 +29,7 @@
 						<i class="material-icons">equalizer</i>
 					</div>
 					<p class="card-category">Responsable Logistique</p>
-					<h3 class="card-title">75.521</h3>
+					<h3 class="card-title">{{Nombre_RLogistique}}</h3>
 				</div>
 				<div class="card-footer">
 					<div class="stats">
@@ -46,7 +46,7 @@
 						<i class="material-icons">store</i>
 					</div>
 					<p class="card-category">Responsable Resource Humain</p>
-					<h3 class="card-title">$34,245</h3>
+					<h3 class="card-title">{{Nombre_RRH}}</h3>
 				</div>
 				<div class="card-footer">
 					<div class="stats">
@@ -63,7 +63,7 @@
 						<i class="fa fa-twitter"></i>
 					</div>
 					<p class="card-category">Responsable Stock</p>
-					<h3 class="card-title">+245</h3>
+					<h3 class="card-title">{{Nombre_Admin}}</h3>
 				</div>
 				<div class="card-footer">
 					<div class="stats">
@@ -128,14 +128,19 @@
 										<td>{{U.email}}</td>
 										<td>{{U.tel}}</td>
 										<td>
-											<div class="fileinput fileinput-new text-center" data-provides="fileinput" style="max-width: 15%;">
+											<div class="fileinput fileinput-new text-center" data-provides="fileinput" style="max-width: 50%;">
 												<div class="fileinput-new thumbnail img-circle">
-													<img src="../../images/1.png" alt="...">
+													<img src="{{ asset ('/uploads/images/' ~ U.image ) }}" alt="...">
 												</div>
 												<div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
 											</div>
 										</td>
-										<td>{{U.cvFile}}</td>
+										<td ><div class="fileinput fileinput-new text-center" data-provides="fileinput" >
+												<div class="fileinput-new thumbnail img-circle">
+													<img src="{{ asset ('/uploads/cvs/' ~ U.cvFile ) }}" alt="...">
+												</div>
+												<div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
+											</div></td>
 										<td class="text-right">
 											<a  href="gestionuser/modifierutilisateur/{{U.id}}" class="btn btn-link btn-info btn-just-icon like">
 												<i class="material-icons">edit</i>

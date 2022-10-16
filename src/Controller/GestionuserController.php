@@ -13,12 +13,29 @@ class GestionuserController extends AbstractController
 {
     #[Route('/gestionuser', name: 'app_gestionuser')]
     public function index(): Response
-    {
+    {   $Nombre_Admin=0;
+        $Nombre_RLogistique=0;
+        $Nombre_RRH=0;
+        $Nombre_RS=0;
         $repo=$this->getDoctrine()->getRepository(User::class);
         $UtilisateursList=$repo->findAll();
+        //Statistique
+        //$Nombre_Admin=$UtilisateursList
+        dump($UtilisateursList);
+        $Nombre_Admin=$this->getDoctrine()->getRepository(User::class)->count(['roles' => 'ROLE_ADMIN']);
+        dump($Nombre_Admin);
+        $Nombre_RLogistique=$this->getDoctrine()->getRepository(User::class)->count(['roles' => 'ROLE_RLOGISTIQUE']);
+        $Nombre_RRH=$this->getDoctrine()->getRepository(User::class)->count(['roles' => 'ROLE_RRH']);
+        $Nombre_RS=$this->getDoctrine()->getRepository(User::class)->count(['roles' => 'ROLE_RS']);
+        ///Statistiques
+        
         return $this->render('gestionuser/index.html.twig', [
             'controller_name' => 'GestionuserController',
             'UtilisateursList'=>$UtilisateursList,
+            'Nombre_Admin'=>$Nombre_Admin,
+            'Nombre_RLogistique'=>$Nombre_RLogistique,
+            'Nombre_RRH'=>$Nombre_RRH,
+            'Nombre_RS'=>$Nombre_RS
         ]);
     }
     #[Route('/gestionuser/ajouterutilisateur', name: 'AjouterUtilisateur')]
