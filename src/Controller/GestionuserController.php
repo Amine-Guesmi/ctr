@@ -11,6 +11,7 @@ use App\Entity\User;
 use App\Form\UserType;
 class GestionuserController extends AbstractController
 {
+
     #[Route('/gestionuser', name: 'app_gestionuser')]
     public function index(): Response
     {   $Nombre_Admin=0;
@@ -22,13 +23,12 @@ class GestionuserController extends AbstractController
         //Statistique
         //$Nombre_Admin=$UtilisateursList
         dump($UtilisateursList);
-        $Nombre_Admin=$this->getDoctrine()->getRepository(User::class)->count(['roles' => 'ROLE_ADMIN']);
-        dump($Nombre_Admin);
-        $Nombre_RLogistique=$this->getDoctrine()->getRepository(User::class)->count(['roles' => 'ROLE_RLOGISTIQUE']);
-        $Nombre_RRH=$this->getDoctrine()->getRepository(User::class)->count(['roles' => 'ROLE_RRH']);
-        $Nombre_RS=$this->getDoctrine()->getRepository(User::class)->count(['roles' => 'ROLE_RS']);
+
         ///Statistiques
-        
+        foreach($UtilisateursList as $elem){
+            if($elem->getRoles()[0] === "ROLE_ADMIN")
+                $Nombre_Admin++;
+        }
         return $this->render('gestionuser/index.html.twig', [
             'controller_name' => 'GestionuserController',
             'UtilisateursList'=>$UtilisateursList,

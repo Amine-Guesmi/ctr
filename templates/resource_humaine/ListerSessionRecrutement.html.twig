@@ -70,6 +70,7 @@
             <table id="datatableSession" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
               <thead>
                 <tr>
+                  <th>lien</th>
                   <th>Nom de Session</th>
                   <th>date Début</th>
                   <th>Date Terminer</th>
@@ -81,6 +82,7 @@
               </thead>
               <tfoot>
                 <tr>
+                  <th>lien</th>
                   <th>Nom de Session</th>
                   <th>date Début</th>
                   <th>Date Terminer</th>
@@ -93,6 +95,7 @@
               <tbody>
               {% for session in Sessions %}
                     <tr>
+                        <th> <a href="#" data-url="" class="btn btn-info">Lien<div class="ripple-container"></div></a></th>
                         <td> {{ session.nomSession }} </td>
                         <td> {{ session.dateDebut|date('Y-m-d H:i:s') }} </td>
                         <td> {{ session.dateTerminer|date('Y-m-d H:i:s') }} </td>
