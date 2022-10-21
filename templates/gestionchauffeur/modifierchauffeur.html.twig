@@ -1,19 +1,19 @@
 {% extends 'base_dashbord.html.twig' %}
 
-{% block title %}Ajouter Chauffeur
+{% block title %}Modifier Chauffeur
 {% endblock %}
 
 {% block body %}
 	<div class="row">
 
 		<div class="col-md-4">
-			{{ form_start(formeditchauffeur,{'action':'/gestionchauffeur/ajouterchauffeur'})}}
+			{{ form_start(formeditchauffeur)}}
 			<div class="card ">
 				<div class="card-header card-header-rose card-header-icon">
 					<div class="card-icon">
 						<i class="fa fa-truck"></i>
 					</div>
-					<h4 class="card-title">Ajouter Chauffeur</h4>
+					<h4 class="card-title">Modifier Chauffeur</h4>
 				</div>
 				<div class="card-body ">
 					<div class="form-group bmd-form-group">
@@ -37,7 +37,7 @@
 							Image *</label>
 					<div class="fileinput fileinput-new text-center" data-provides="fileinput">
 						<div class="fileinput-new thumbnail">
-							<img src="../../assets/img/image_placeholder.jpg" alt="image">
+							<img src="{{ asset ('/uploads/images/chauffeurs/' ~ oldimagechauffeur ) }}" alt="...">
 						</div>
 						<div class="fileinput-preview fileinput-exists thumbnail"></div>
 						<div>
@@ -51,8 +51,8 @@
 				<div class="card-footer text-right">
 					<div class="form-check mr-auto"></div>
 					<button type="submit" class="btn btn-rose">
-						<i class="fa fa-plus"></i>
-						Ajouter</button>
+						<i class="fa fa-gear"></i>
+						Modifier</button>
 				</div>
 			</div>
 			{{ form_end(formeditchauffeur)}}

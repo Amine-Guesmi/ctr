@@ -14,8 +14,8 @@
 					<div class="card-icon">
 						<i class="material-icons">equalizer</i>
 					</div>
-					<p class="card-category">Voyages effectués</p>
-					<h3 class="card-title">184</h3>
+					<p class="card-category">Nombre des chauffeurs</p>
+					<h3 class="card-title">{{Nbr_chauffeurs}}</h3>
 				</div>
 				<div class="card-footer">
 					<div class="stats">
@@ -74,7 +74,14 @@
 										<td>{{U.nom}}</td>
 										<td>{{U.prenom}}</td>
 										<td>{{U.tel}}</td>
-										<td>{{U.image}}</td>
+										<td>
+											<div class="fileinput fileinput-new text-center" data-provides="fileinput" style="max-width: 50%;">
+												<div class="fileinput-new thumbnail img-circle">
+													<img src="{{ asset ('/uploads/images/chauffeurs/' ~ U.image ) }}" alt="...">
+												</div>
+												<div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
+											</div>
+										</td>
 										<td>{{U.User}}</td>
 										<td class="text-right">
 											<a  href="gestionchauffeur/modifierchauffeur/{{U.id}}" class="btn btn-link btn-info btn-just-icon like">
@@ -99,46 +106,6 @@
 	{% endblock %}
 
 	{% block script %}
-		<script>
-			$(document).ready(function () {
-$('#datatableEmployer').DataTable({
-"pagingType": "full_numbers",
-"lengthMenu": [
-[
-10, 25, 50, -1
-],
-[
-10, 25, 50, "All"
-]
-],
-responsive: true,
-language: {
-search: "_INPUT_",
-searchPlaceholder: "Search records"
-}
-});
-
-var table = $('#datatableEmployer').DataTable();
-
-// Edit record
-table.on('click', '.edit', function () {
-$tr = $(this).closest('tr');
-var data = table.row($tr).data();
-alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
-});
-
-// Delete a record
-table.on('click', '.remove', function (e) {
-$tr = $(this).closest('tr');
-table.row($tr).remove().draw();
-e.preventDefault();
-});
-
-// Like record
-table.on('click', '.like', function () {
-alert('You clicked on Like button');
-});
-});
-		</script>
+		
 
 	{% endblock %}

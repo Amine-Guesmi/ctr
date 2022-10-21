@@ -16,7 +16,7 @@ class ChauffeurType extends AbstractType
             ->add('nom',null,['label' => false])
             ->add('prenom',null,['label' => false])
             ->add('tel',null,['label' => false])
-            ->add('image',FileType::class,['label' => false])
+            ->add('image',FileType::class,array('data_class' => null,'required' => true,'mapped'=> false),['label' => false])
            
         ;
     }
