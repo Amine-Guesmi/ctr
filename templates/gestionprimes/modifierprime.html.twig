@@ -1,6 +1,6 @@
 {% extends 'base_dashbord.html.twig' %}
 
-{% block title %}Ajouter Equipement
+{% block title %}Modifier Prime
 {% endblock %}
 
 {% block body %}
@@ -11,7 +11,7 @@
 
 		</div>
 		<div class="col-md-6">
-			{{ form_start(formeditprime,{'action':'/Primes/modifierprime'})}}
+			{{ form_start(formeditprime)}}
 			<div class="card ">
 				<div class="card-header card-header-rose card-header-icon">
 					<div class="card-icon">
@@ -32,7 +32,7 @@
 					</div>
 					<div class="form-group bmd-form-group">
 						<label for="date" class="bmd-label-floating">
-							Date Ajout *</label>
+							Date Ajout *</label><br>
 						{{ form_row(formeditprime.dateAjout, {'attr' : {'class':'form-control','required':'true'}}) }}
 					</div>
 					<div class="category form-category">* Obligatoire</div>
@@ -40,7 +40,7 @@
 				<div class="card-footer text-right">
 					<div class="form-check mr-auto"></div>
 					<button type="submit" class="btn btn-rose">
-						<i class="fa fa-plus"></i>
+						<i class="fa fa-gear"></i>
 						Modifier</button>
 				</div>
 			</div>

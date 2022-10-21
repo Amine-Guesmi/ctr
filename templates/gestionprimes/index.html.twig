@@ -117,14 +117,14 @@
 								{% for P in PrimesList | sort((a, b) => a.id <=> b.id)%}
 
 									<tr>
-										<td>{{P.prime}}</td>
+										<td>{{P.prime}} DT</td>
 										<td>{{P.description}}</td>
-										<td>{{P.dateAjout}}</td>
+										<td>{{P.dateAjout|date('d-m-y')}}</td>
 										<td class="text-right">
-											<a  href="gestionuser/modifierprime/{{P.id}}" class="btn btn-link btn-info btn-just-icon like">
+											<a  href="Primes/modifierprime/{{P.id}}" class="btn btn-link btn-info btn-just-icon like">
 												<i class="material-icons">edit</i>
 											</a>
-											<a href="gestionuser/deleteprime/{{P.id}}"class="btn btn-link btn-danger btn-just-icon remove">
+											<a href="Primes/deleteprime/{{P.id}}"class="btn btn-link btn-danger btn-just-icon remove">
 												<i class="material-icons" >delete</i>
 											</a>
 										</td>
@@ -139,49 +139,4 @@
 			</div>
 			<!--  end card  -->
 		</div>
-	{% endblock %}
-
-	{% block script %}
-		<script>
-			$(document).ready(function () {
-$('#datatableEmployer').DataTable({
-"pagingType": "full_numbers",
-"lengthMenu": [
-[
-10, 25, 50, -1
-],
-[
-10, 25, 50, "All"
-]
-],
-responsive: true,
-language: {
-search: "_INPUT_",
-searchPlaceholder: "Search records"
-}
-});
-
-var table = $('#datatableEmployer').DataTable();
-
-// Edit record
-table.on('click', '.edit', function () {
-$tr = $(this).closest('tr');
-var data = table.row($tr).data();
-alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
-});
-
-// Delete a record
-table.on('click', '.remove', function (e) {
-$tr = $(this).closest('tr');
-table.row($tr).remove().draw();
-e.preventDefault();
-});
-
-// Like record
-table.on('click', '.like', function () {
-alert('You clicked on Like button');
-});
-});
-		</script>
-
 	{% endblock %}

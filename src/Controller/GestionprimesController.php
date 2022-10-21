@@ -49,7 +49,7 @@ class GestionprimesController extends AbstractController
          if($formedit->isSubmitted() && $formedit->isValid()){
              $this->getDoctrine()->getManager()->persist($Prime); 
              $this->getDoctrine()->getManager()->flush(); 
-               
+                return $this->redirectToRoute('app_gestionprimes');
          }
          return $this->render('gestionprimes/modifierprime.html.twig', [
              'controller_name' => 'GestionPrimeController',
@@ -58,7 +58,7 @@ class GestionprimesController extends AbstractController
          ]);
      }
      //Supprimer
-     #[Route('/Primes/delete/{id}', name: 'deleteprime')]
+     #[Route('/Primes/deleteprime/{id}', name: 'deleteprime')]
      public function delete(Request $request, $id): Response
      { $em = $this->getDoctrine()->getManager();
          $Prime = $em

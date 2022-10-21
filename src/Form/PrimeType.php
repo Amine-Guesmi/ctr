@@ -10,14 +10,16 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 class PrimeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('prime',NumberType::class,['label' => false])
-            ->add('description',null,['label' => false])
-            ->add('dateAjout',null,['label' => false])
+            ->add('description',TextType::class,['label' => false])
+            ->add('dateAjout',DateType::class,['label' => false])
             ->add('Employers')
         ;
     }
