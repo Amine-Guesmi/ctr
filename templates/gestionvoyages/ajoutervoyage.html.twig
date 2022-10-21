@@ -22,28 +22,32 @@
 				<div class="card-body ">
 					<div class="form-group bmd-form-group">
 						<label for="pointDebut" class="bmd-label-floating">
-							pointDebut *</label>
-						{{ form_row(formajoutvoyage.pointDebut, {'attr' : {'class':'form-control','required':'true'}}) }}
+							pointDebut *</label><br>
+						{{ form_row(formajoutvoyage.pointDebut, {'attr' : {'class':'form-control datepicker','required':'true'}}) }}
 					</div>
                     <div class="form-group bmd-form-group">
 						<label for="pointFinale" class="bmd-label-floating">
-							 pointFinale *</label>
+							 pointFinale *</label><br>
 						{{ form_row(formajoutvoyage.pointFinale, {'attr' : {'class':'form-control','required':'true'}}) }}
 					</div>
 					<div class="form-group bmd-form-group">
 						<label for="dateDebut" class="bmd-label-floating">
-							dateDebut *</label>
-						{{ form_row(formajoutvoyage.dateDebut, {'attr' : {'class':'form-control','required':'true'}}) }}
+							dateDebut *</label><br>
+						{{ form_row(formajoutvoyage.dateDebut, {'attr' : {'class':'form-control','format':'dd/mm/yyyy','required':'true'}}) }}
 					</div>
 					<div class="form-group bmd-form-group">
 						<label for="dateFinale" class="bmd-label-floating">
-							dateFinale *</label>
-						{{ form_row(formajoutvoyage.dateFinale, {'attr' : {'class':'form-control','required':'true'}}) }}
+							dateFinale *</label><br>
+						{{ form_row(formajoutvoyage.dateFinale, {'attr' : {'class':'form-control','format':'dd/mm/yyyy','required':'true'}}) }}
 					</div>
                     <div class="form-group bmd-form-group">
 						<label for="Chauffeur" class="bmd-label-floating">
-							Chauffeur *</label>
-						{{ form_row(formajoutvoyage.Chauffeur, {'attr' : {'class':'form-control','required':'true'}}) }}
+							Chauffeur *</label><br>
+							<select class="form-group bmd-form-group" name="chauffeur">
+						{% for C in ChauffeurList %}
+							<option value="{{C.id}}">{{C.nom}} {{C.prenom}}</option>
+						{% endfor %}
+							</select>
 					</div>
 					<div class="category form-category">* Obligatoire</div>
 				</div>
