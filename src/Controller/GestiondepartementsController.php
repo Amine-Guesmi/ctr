@@ -49,7 +49,7 @@ class GestiondepartementsController extends AbstractController
         if($formedit->isSubmitted() && $formedit->isValid()){
             $this->getDoctrine()->getManager()->persist($Departement); 
             $this->getDoctrine()->getManager()->flush(); 
-              
+            return $this->redirectToRoute('app_gestiondepartements');
         }
         return $this->render('gestiondepartements/modifierdepartement.html.twig', [
             'controller_name' => 'GestionDepartementController',
@@ -58,7 +58,7 @@ class GestiondepartementsController extends AbstractController
         ]);
     }
     //Supprimer
-    #[Route('/Departements/delete/{id}', name: 'deletedepartement')]
+    #[Route('/Departements/deletedepartement/{id}', name: 'deletedepartement')]
     public function delete(Request $request, $id): Response
     { $em = $this->getDoctrine()->getManager();
         $Departement = $em
