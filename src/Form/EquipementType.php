@@ -6,6 +6,8 @@ use App\Entity\Equipement;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class EquipementType extends AbstractType
 {
@@ -13,8 +15,8 @@ class EquipementType extends AbstractType
     {
         $builder
             ->add('libelle',null,['label' => false])
-            ->add('image',null,['label' => false])
-            ->add('dateAjout',null,['label' => false])
+            ->add('image',FileType::class,array('data_class' => null,'required' => false,'mapped'=> false),['label' => false])
+            ->add('dateAjout',DateType::class,['label' => false])
            // ->add('User')
         ;
     }

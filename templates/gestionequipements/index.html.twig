@@ -117,21 +117,21 @@
 								{% for E in EquipementsList | sort((a, b) => a.id <=> b.id)%}
 
 									<tr>
-										<td>{{E.liblelle}}</td>
+										<td>{{E.libelle}}</td>
                                         <td>
-											<div class="fileinput fileinput-new text-center" data-provides="fileinput" style="max-width: 15%;">
+											<div class="fileinput fileinput-new text-center" data-provides="fileinput" style="max-width: 50%;">
 												<div class="fileinput-new thumbnail img-circle">
-													<img src="../../images/1.png" alt="...">
+													<img src="{{ asset ('/uploads/images/equipements/' ~ E.image ) }}" alt="...">
 												</div>
 												<div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
 											</div>
 										</td>
-										<td>{{E.dateAjout}}</td>
+										<td>{{E.dateAjout|date('d-m-yy')}}</td>
 										<td class="text-right">
-											<a  href="gestionuser/modifierequipement/{{U.id}}" class="btn btn-link btn-info btn-just-icon like">
+											<a  href="Equipements/modifierequipement/{{E.id}}" class="btn btn-link btn-info btn-just-icon like">
 												<i class="material-icons">edit</i>
 											</a>
-											<a href="gestionuser/deleteequipement/{{U.id}}"class="btn btn-link btn-danger btn-just-icon remove">
+											<a href="Equipements/deleteequipement/{{E.id}}"class="btn btn-link btn-danger btn-just-icon remove">
 												<i class="material-icons" >delete</i>
 											</a>
 										</td>
@@ -146,49 +146,4 @@
 			</div>
 			<!--  end card  -->
 		</div>
-	{% endblock %}
-
-	{% block script %}
-		<script>
-			$(document).ready(function () {
-$('#datatableEmployer').DataTable({
-"pagingType": "full_numbers",
-"lengthMenu": [
-[
-10, 25, 50, -1
-],
-[
-10, 25, 50, "All"
-]
-],
-responsive: true,
-language: {
-search: "_INPUT_",
-searchPlaceholder: "Search records"
-}
-});
-
-var table = $('#datatableEmployer').DataTable();
-
-// Edit record
-table.on('click', '.edit', function () {
-$tr = $(this).closest('tr');
-var data = table.row($tr).data();
-alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
-});
-
-// Delete a record
-table.on('click', '.remove', function (e) {
-$tr = $(this).closest('tr');
-table.row($tr).remove().draw();
-e.preventDefault();
-});
-
-// Like record
-table.on('click', '.like', function () {
-alert('You clicked on Like button');
-});
-});
-		</script>
-
 	{% endblock %}

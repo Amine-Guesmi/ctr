@@ -39,30 +39,41 @@ class GestionequipementsController extends AbstractController
             $this->getDoctrine()->getManager()->persist($Equipements);
             $this->getDoctrine()->getManager()->flush();   
             
-            return $this->redirectToRoute('app_gestionequipement');
+            return $this->redirectToRoute('app_gestionequipements');
         }
         return $this->render('gestionequipements/ajouterequipement.html.twig', [
             'controller_name' => 'GestionequipementController',
             'formajoutequipement' => $form->createView()
         ]);
     }
-    #[Route('/gestionequipement/modifierequipement/{id}', name: 'ModifierEquipement')]
+    #[Route('/Equipements/modifierequipement/{id}', name: 'ModifierEquipement')]
     public function ModifierEquipement(Equipement $Equipement, Request $req,int $id)
-{   $Equipement->setImage(new File($this->getParameter('upload_image').'images/'.$Equipement->getImage()));
+{       $oldimage=$Equipement->getImage();
+        $Equipement->setImage(new File($this->getParameter('upload_image_equipement').'/'.$Equipement->getImage()));
         $formedit = $this->createForm(EquipementType::class, $Equipement);
         $formedit->handleRequest($req);
         if($formedit->isSubmitted() && $formedit->isValid()){
+            if($formedit->get('image')->getData() != null){
+                $images = $formedit->get('image')->getData();
+                $fichier = md5(uniqid()).'.'.$images->guessExtension();
+                $images->move($this->getParameter('upload_image_equipement'),$fichier);
+                $Equipement->setImage($fichier);
+            }else{
+                $Equipement->setImage($oldimage);
+            }
             $this->getDoctrine()->getManager()->persist($Equipement); 
             $this->getDoctrine()->getManager()->flush(); 
+            return $this->redirectToRoute('app_gestionequipements');
               
         }
-        return $this->render('Equipements/modifierequipement.html.twig', [
+        return $this->render('gestionequipements/modifierequipement.html.twig', [
             'controller_name' => 'GestionEquipementController',
             'formeditequipement' => $formedit->createView(),
-            'id' => $Equipement->getId()
+            'id' => $Equipement->getId(),
+            'oldimage'=>$oldimage
         ]);
     }
-    #[Route('/Equipements/delete/{id}', name: 'deleteequipement')]
+    #[Route('/Equipements/deleteequipement/{id}', name: 'deleteequipement')]
     public function delete(Request $request, $id): Response
     { $em = $this->getDoctrine()->getManager();
         $Equipement = $em

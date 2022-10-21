@@ -6,6 +6,7 @@
 parameters:
     upload_image: '%kernel.project_dir%\public\uploads\'
     upload_image_chauffeur: '%kernel.project_dir%\public\uploads\images\chauffeurs'
+    upload_image_equipement: '%kernel.project_dir%\public\uploads\images\equipements'
 services:
     # default configuration for services in *this* file
     _defaults:
