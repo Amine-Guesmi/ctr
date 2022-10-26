@@ -50,12 +50,12 @@ class Employer
 
     #[ORM\OneToMany(mappedBy: 'Employers', targetEntity: Prime::class)]
     private $primes;
-
+/*
     public function __construct()
     {
         $this->primes = new ArrayCollection();
     }
-
+*/
     public function getId(): ?int
     {
         return $this->id;
@@ -192,7 +192,6 @@ class Employer
 
         return $this;
     }
-
     /**
      * @return Collection<int, Prime>
      */
@@ -200,7 +199,6 @@ class Employer
     {
         return $this->primes;
     }
-
     public function addPrime(Prime $prime): self
     {
         if (!$this->primes->contains($prime)) {

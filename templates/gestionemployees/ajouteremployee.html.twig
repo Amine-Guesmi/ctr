@@ -42,13 +42,8 @@
 					</div>
 					<div class="form-group bmd-form-group">
 						<label for="examplePassword" class="bmd-label-floating">
-							Mot de pass *</label>
+							Salaire *</label>
 						{{ form_row(formajoutemployee.salaire, {'attr' : {'class':'form-control','required':'true'}}) }}
-					</div>
-					<div class="form-group bmd-form-group">
-						<label for="examplePassword1" class="bmd-label-floating">
-							Confirmer Mot de pass *</label>
-						<input type="password" class="form-control" id="examplePassword1" required="true" equalto="#examplePassword" name="password_confirmation" aria-required="true">
 					</div>
 					<div class="form-group bmd-form-group">
 						<label for="exampleEmail" class="bmd-label-floating">
@@ -87,10 +82,18 @@
 						</div>
 					</div>
 					<div class="col-lg-5 col-md-6 col-sm-3">
-						{{ form_row(formajoutemployee.User, {'attr' : {'placeholder':'Choisire User','class':'selectpicker ','data-style':'select-with-transition' ,'multiple':'', 'title':'Choose City', 'data-size':'7', 'tabindex':'-98'}}) }}
+						<select name="SelectUser" id="SelectUser">
+						{% for U in UsersList %}
+							<option value='{{U.id}}'>{{U.nom}} {{U.prenom}}</option>
+						{% endfor %}
+						</select>
 					</div>
 					<div class="col-lg-5 col-md-6 col-sm-3">
-						{{ form_row(formajoutemployee.department, {'attr' : {'placeholder':'Choisire department','class':'selectpicker ','data-style':'select-with-transition' ,'multiple':'', 'title':'Choose City', 'data-size':'7', 'tabindex':'-98'}}) }}
+						<select name="SelectDepartement" id="SelectDepartement">
+						{% for D in DepartementsList %}
+							<option value='{{D.id}}'>{{D.Libelle}}</option>
+						{% endfor %}
+						</select>
 					</div>
 
 					<div class="category form-category">* Obligatoire</div>

@@ -86,7 +86,8 @@
 				<div class="card-header card-header-primary card-header-icon">
 					<a href="{{path('AjouterEmployer')}}" style="color:white;">
 						<div class="card-icon" style="float:right;cursor:pointer;">
-							<i class="fa fa-plus"></i><i class="fa fa-users"></i>
+							<i class="fa fa-plus"></i>
+							<i class="fa fa-users"></i>
 						</div>
 						<h4 class="card-title"></h4>
 					</a>
@@ -102,8 +103,8 @@
 									<th>nom</th>
 									<th>prenom</th>
 									<th>dateNais</th>
-                                    <th>Image</th>
-                                    <th>tel</th>
+									<th>Image</th>
+									<th>tel</th>
 									<th>email</th>
 									<th>adresse</th>
 									<th>salaire</th>
@@ -119,8 +120,8 @@
 									<th>nom</th>
 									<th>prenom</th>
 									<th>dateNais</th>
-                                    <th>Image</th>
-                                    <th>tel</th>
+									<th>Image</th>
+									<th>tel</th>
 									<th>email</th>
 									<th>adresse</th>
 									<th>salaire</th>
@@ -137,22 +138,35 @@
 									<tr>
 										<td>{{E.nom}}</td>
 										<td>{{E.prenom}}</td>
-										<td>{{E.dateNais}}</td>
-                                        <td>{{E.Image}}</td>
-                                        <td>{{E.tel}}</td>
+										<td>{{E.dateNais | date('d-m-y')}}</td>
+										<td>
+											<div class="fileinput fileinput-new text-center" data-provides="fileinput" style="max-width: 50%;">
+												<div class="fileinput-new thumbnail img-circle">
+													<img src="{{ asset ('/uploads/images/employees/' ~ E.image ) }}" alt="...">
+												</div>
+												<div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
+											</div>
+										</td>
+										<td>{{E.tel}}</td>
 										<td>{{E.email}}</td>
 										<td>{{E.adresse}}</td>
 										<td>{{E.salaire}}</td>
-										<td>{{E.cv}}</td>
-										<td>{{E.User}}</td>
-										<td>{{E.department}}</td>
-										<td>{{E.primes}}</td>
+										<td>
+
+											<button class="btn btn-success ">
+												<a class="text-white" href="{{ asset ('/uploads/cvs/employees/' ~ E.cv ) }}" download="{{E.cv}}">Download</a>
+											</button>
+
+										</td>
+										<td>{{E.User.nom}}</td>
+										<td>{{E.department.libelle}}</td>
+										<td>problem</td>
 										<td class="text-right">
-											<a  href="gestionuser/modifieremployee/{{E.id}}" class="btn btn-link btn-info btn-just-icon like">
+											<a href="Employers/modifieremployee/{{E.id}}" class="btn btn-link btn-info btn-just-icon like">
 												<i class="material-icons">edit</i>
 											</a>
-											<a href="gestionuser/deleteemployee/{{E.id}}"class="btn btn-link btn-danger btn-just-icon remove">
-												<i class="material-icons" >delete</i>
+											<a href="Employers/delete/{{E.id}}" class="btn btn-link btn-danger btn-just-icon remove">
+												<i class="material-icons">delete</i>
 											</a>
 										</td>
 									</tr>

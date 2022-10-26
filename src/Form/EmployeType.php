@@ -24,32 +24,6 @@ class EmployeType extends AbstractType
             ->add('adresse',null,['label' => false])
             ->add('salaire',null,['label' => false])
             ->add('cv',FileType::class,array('data_class' => null,'required' => false),['label' => false])
-            ->add('User',CollectionType::class, [
-                'entry_type'   => ChoiceType::class,
-                'entry_options'  => [
-                    'choices' => [
-                        "Users" => [
-                            "Admin" => "Admin",
-                            "Responsable Logistique" => "Responsable Logistique",
-                            "Responsable Resources Humain" => "Responsable Resources Humain",
-                            "Responsable Stock" => "Responsable Stock",
-                        ]
-                    ]
-                ]
-                        ],['label' => false])
-            ->add('department',CollectionType::class, [
-                'entry_type'   => ChoiceType::class,
-                'entry_options'  => [
-                    'choices' => [
-                        "Departements" => [
-                            "Admin" => "Admin",
-                            "Responsable Logistique" => "Responsable Logistique",
-                            "Responsable Resources Humain" => "Responsable Resources Humain",
-                            "Responsable Stock" => "Responsable Stock",
-                        ]
-                    ]
-                ]
-                        ],['label' => false])
         ;
     }
 
