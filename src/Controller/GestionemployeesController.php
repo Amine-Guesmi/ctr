@@ -76,19 +76,66 @@ class GestionemployeesController extends AbstractController
     //Modifier
     #[Route('/Employers/modifieremployee/{id}', name: 'ModifierEmployer')]
     public function ModifierEmployer(Employer $Employer, Request $req, int $id)
-    {
-        $Employer->setImage(new File($this->getParameter('upload_image') . 'images/' . $Employer->getImage()));
-        $Employer->setCv(new File($this->getParameter('upload_image') . 'cvs/' . $Employer->getCv()));
+    {   
+        $UsersList = $this->getDoctrine()->getRepository(User::class)->findAll();
+        $DepartementsList=$this->getDoctrine()->getRepository(Department::class)->findAll();
+        //
+        $oldSelectDepartement=$Employer->getDepartment()->getId();
+        $oldSelectUser=$Employer->getUser()->getId();
+        $oldImage=$Employer->getImage();
+        $oldCV=$Employer->getCv();
+        //
+        $Employer->setImage(new File($this->getParameter('upload_image_employee') . '/' . $Employer->getImage()));
+        $Employer->setCv(new File($this->getParameter('upload_image') . 'cvs/employees/' . $Employer->getCv()));
+
+        $Employer->setUser($this->getDoctrine()->getRepository(User::class)->find($Employer->getUser()->getId()));
+        $Employer->setDepartment($this->getDoctrine()->getRepository(Department::class)->find($Employer->getDepartment()->getId()));
+
         $formedit = $this->createForm(EmployeType::class, $Employer);
         $formedit->handleRequest($req);
         if ($formedit->isSubmitted() && $formedit->isValid()) {
+            //Departement
+            $idDepartement=$req->request->get('SelectDepartement');
+            $Departement=$this->getDoctrine()->getRepository(Department::class)->find((int)$idDepartement);
+            $Employer->setDepartment($Departement);
+            //User
+            $idUser=$req->request->get('SelectUser');
+            $User=$this->getDoctrine()->getRepository(User::class)->find((int)$idUser);
+            $Employer->setUser($User);
+            //
+            $images = $formedit->get('Image')->getData();
+            $CV = $formedit->get('cv')->getData();
+            if ($images != null) {
+                $fichier = md5(uniqid()) . '.' . $images->guessExtension();
+                $images->move($this->getParameter('upload_image_employee') . '/', $fichier);
+                $Employer->setImage($fichier);
+            } else {
+                $Employer->setImage($oldImage);
+            }
+            if ($CV != null) {
+                $fichier2 = md5(uniqid()) . '.' . $CV->guessExtension();
+                $CV->move(
+                    $this->getParameter('upload_image') . 'cvs/employees',
+                    $fichier2
+                );
+                $Employer->setCv($fichier2);
+            } else {
+                $Employer->setCv($oldCV);
+            }
             $this->getDoctrine()->getManager()->persist($Employer);
             $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('app_gestionemployees');
         }
         return $this->render('gestionemployees/modifieremployee.html.twig', [
             'controller_name' => 'GestionEmployerController',
             'formeditemployee' => $formedit->createView(),
-            'id' => $Employer->getId()
+            'id' => $Employer->getId(),
+            'oldSelectDepartement' => $oldSelectDepartement,
+            'oldSelectUser' => $oldSelectUser,
+            'oldImage' => $oldImage,
+            'oldCV' => $oldCV,
+            'UsersList' => $UsersList,
+            'DepartementsList' => $DepartementsList
         ]);
     }
     //Supemployeer

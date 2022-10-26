@@ -11,7 +11,7 @@
 
 		</div>
 		<div class="col-md-6">
-			{{ form_start(formeditemployee,{'action':'/Employers/modifieremployee'})}}
+			{{ form_start(formeditemployee)}}
 			<div class="card ">
 				<div class="card-header card-header-rose card-header-icon">
 					<div class="card-icon">
@@ -42,13 +42,8 @@
 					</div>
 					<div class="form-group bmd-form-group">
 						<label for="examplePassword" class="bmd-label-floating">
-							Mot de pass *</label>
+							Salaire *</label>
 						{{ form_row(formeditemployee.salaire, {'attr' : {'class':'form-control','required':'true'}}) }}
-					</div>
-					<div class="form-group bmd-form-group">
-						<label for="examplePassword1" class="bmd-label-floating">
-							Confirmer Mot de pass *</label>
-						<input type="password" class="form-control" id="examplePassword1" required="true" equalto="#examplePassword" name="password_confirmation" aria-required="true">
 					</div>
 					<div class="form-group bmd-form-group">
 						<label for="exampleEmail" class="bmd-label-floating">
@@ -58,18 +53,18 @@
 					<div class="col-lg-5 col-md-6 col-sm-3">
 						{{ form_row(formeditemployee.dateNais, {'attr' : {'placeholder':'Choisire Role','class':'selectpicker ','data-style':'select-with-transition' ,'multiple':'', 'title':'Choose City', 'data-size':'7', 'tabindex':'-98'}}) }}
 					</div>
-
 					<div class="form-group bmd-form-group"></div>
 					<label for="image" class="bmd-label-floating">
 						Image *</label>
 					<div class="fileinput fileinput-new text-center" data-provides="fileinput">
 						<div class="fileinput-new thumbnail">
-							<img src="../../assets/img/image_placeholder.jpg" alt="image">
+							<img src="{{ asset ('/uploads/images/employees/' ~ oldImage ) }}" alt="...">
 						</div>
 						<div class="fileinput-preview fileinput-exists thumbnail"></div>
 						<div>
 							<span class="btn btn-rose btn-round btn-file">
-								{{ form_row(formeditemployee.Image, {'attr' : {'required':'true','name':'image'}}) }}
+								{{ form_row(formeditemployee.Image, {'attr' : {'name':'image','hidden':'true'}}) }}
+								<span class="fileinput-new" name="image">Choisir Image</span>
 							</span>
 						</div>
 					</div>
@@ -77,34 +72,46 @@
 					<div class="fileinput fileinput-new text-center float-right" data-provides="fileinput">
 						<div class="fileinput-new thumbnail">
 							<img src="../../assets/img/image_placeholder.jpg" alt="cv">
+
 						</div>
 						<div class="fileinput-preview fileinput-exists thumbnail"></div>
 						<div>
 							<label for="image" class="bmd-label-floating">CV *</label>
 							<span class="btn btn-rose btn-round btn-file">
-								{{ form_row(formeditemployee.cv, {'attr' : {'required':'true','name':'cv'}}) }}
+								<span class="fileinput-new" name="cv">Choisir CV</span>
+								{{ form_row(formeditemployee.cv, {'attr' : {'name':'cvFile','hidden':'true'}}) }}
 							</span>
 						</div>
 					</div>
+
 					<div class="col-lg-5 col-md-6 col-sm-3">
-						{{ form_row(formeditemployee.User, {'attr' : {'placeholder':'Choisire User','class':'selectpicker ','data-style':'select-with-transition' ,'multiple':'', 'title':'Choose City', 'data-size':'7', 'tabindex':'-98'}}) }}
+						<select name="SelectUser" value={{oldSelectUser}} id="SelectUser">
+							{% for U in UsersList %}
+								<option value='{{U.id}}'>{{U.nom}}
+									{{U.prenom}}</option>
+							{% endfor %}
+						</select>
 					</div>
 					<div class="col-lg-5 col-md-6 col-sm-3">
-						{{ form_row(formeditemployee.department, {'attr' : {'placeholder':'Choisire department','class':'selectpicker ','data-style':'select-with-transition' ,'multiple':'', 'title':'Choose City', 'data-size':'7', 'tabindex':'-98'}}) }}
+						<select name="SelectDepartement" value={{oldSelectDepartement}} id="SelectDepartement">
+							{% for D in DepartementsList %}
+								<option value='{{D.id}}'>{{D.Libelle}}</option>
+							{% endfor %}
+						</select>
 					</div>
 
 					<div class="category form-category">* Obligatoire</div>
+
+					<div class="card-footer text-right">
+						<div class="form-check mr-auto"></div>
+						<button type="submit" class="btn btn-rose">
+							<i class="fa fa-plus"></i>
+							Modifier</button>
+					</div>
 				</div>
-				<div class="card-footer text-right">
-					<div class="form-check mr-auto"></div>
-					<button type="submit" class="btn btn-rose">
-						<i class="fa fa-plus"></i>
-						Modifier</button>
-				</div>
+				{{ form_end(formeditemployee)}}
 			</div>
-			{{ form_end(formeditemployee)}}
+
+
 		</div>
-
-
-	</div>
-{% endblock %}
+	{% endblock %}
