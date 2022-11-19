@@ -43,8 +43,10 @@
               <i class="material-icons">store</i>
             </div>
             <p class="card-category">Moyenne des candidats</p>
-            <h3 class="card-title">{{ (NumberOfCondidats / NumberOfSessions)|number_format(2) }}</h3>
-          </div>
+            {#}
+            <h3 class="card-title">{{ ( NumberOfCondidats / NumberOfSessions)|number_format(2) }}</h3>
+            {#}
+           </div>
           <div class="card-footer">
             <div class="stats">
               <i class="material-icons">date_range</i> Last 24 Hours

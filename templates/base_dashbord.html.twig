@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
-        <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+        <link rel="icon" type="image/png" href="/uploads/images/logo.png">
         <title>{% block title %}Welcome!{% endblock %}</title>
         
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
@@ -22,12 +22,10 @@
     <body class="">
         <div class="wrapper">
         <div class="sidebar" data-color="rose" data-background-color="black" data-image="/assets/img/sidebar-1.jpg">
-            <div class="logo"><a href="{{path('app_gestionuser')}}" class="simple-text logo-mini">
-                CTR
-                </a>
-                <a href="{{path('app_gestionuser')}}" class="simple-text logo-normal">
-                Admin Dashboard
-                </a></div>
+            <div class="logo" style="text-align:center;">
+                <img src="{{ asset ('/uploads/images/logo.png') }}" width="40%"/>
+    
+                </div>
             {% include "element/dashbord/sidebar.html.twig" %}
             </div>
             <div class="main-panel">

@@ -22,10 +22,18 @@ class SecurityController extends AbstractController
         dd($hashedPassword);*/
 
         if ($this->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('gestion_session_recrutement');
-        }else{
+            return $this->redirectToRoute('app_gestionuser');
+        }
+        if ($this->isGranted('ROLE_RESPONSABLE_RH')) {
             return $this->redirectToRoute('gestion_session_recrutement');
         }
+        if ($this->isGranted('ROLE_RESPONSABLE_LOGISTIQUE')) {
+            return $this->redirectToRoute('app_gestionchauffeur');
+        }
+        if ($this->isGranted('ROLE_RESPONSABLE_STOCK')) {
+            return $this->redirectToRoute('app_gestionequipements');
+        }
+
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -34,6 +42,7 @@ class SecurityController extends AbstractController
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
+    
 
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
