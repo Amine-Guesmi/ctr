@@ -7,15 +7,14 @@
 	<div class="row">
 		<div class="col-md-6">
 
-			<img src="{{asset('assets/img/newpersonel.png')}}" class="card">
+			<img src="{{asset('assets/img/newtravel.png')}}" class="card">
 
 		</div>
 		<div class="col-md-6">
 			{{ form_start(formeditvoyage)}}
 			<div class="card ">
 				<div class="card-header card-header-rose card-header-icon">
-					<div class="card-icon">
-						<i class="fa fa-user"></i>
+					<div class="card-icon"><i class="fa fa-plane"></i>
 					</div>
 					<h4 class="card-title">Modifier Voyage</h4>
 				</div>
@@ -41,14 +40,13 @@
 						{{ form_row(formeditvoyage.dateFinale, {'attr' : {'class':'form-control','required':'true'}}) }}
 					</div>
                     <div class="form-group bmd-form-group">
-						<label for="Chauffeur" class="bmd-label-floating">
-							Chauffeur *</label><br>
-							<select class="form-group bmd-form-group" name="chauffeur">
+						
+							<select class="form-group form-control bmd-form-group" name="chauffeur">
 						{% for C in ChauffeurList %}
 							<option value="{{C.id}}">{{C.nom}} {{C.prenom}}</option>
 						{% endfor %}
 							</select>
-					</div>
+					</div><br><br>
 					<div class="category form-category">* Obligatoire</div>
 				</div>
 				<div class="card-footer text-right">
