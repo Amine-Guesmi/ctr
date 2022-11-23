@@ -1,0 +1,5 @@
+{% for flashMessage in app.session.flashbag.get('error') %}
+
+    <button class="btn btn-danger">{{ flashMessage }}</button>
+
+{% endfor %}

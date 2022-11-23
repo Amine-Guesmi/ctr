@@ -89,8 +89,16 @@ class GestionvoyagesController extends AbstractController
         $Voyage = $em
             ->getRepository(VoyageEffectuer::class)
             ->find($id);
-        $em->remove($Voyage);
-        $em->flush();
+            try
+            {
+                $em->remove($Voyage);
+                $em->flush();
+            }
+            catch(\Exception $e)
+            {
+                $this->addFlash('error', 'Impossible de supprimer ce voyage');
+                return $this->redirectToRoute('app_gestionvoyages');
+            }
         return $this->redirectToRoute('app_gestionvoyages');
     }
 }

@@ -19,9 +19,23 @@ class GestionemployeesController extends AbstractController
     {
         $repo = $this->getDoctrine()->getRepository(Employer::class);
         $EmployersList = $repo->findAll();
+        //dd($EmployersList);
         return $this->render('gestionemployees/index.html.twig', [
             'controller_name' => 'GestionemployeesController',
             'EmployersList' => $EmployersList,
+        ]);
+    }
+    //Primes
+    #[Route('/Employers/employeprimes/{id}', name: 'app_employeprimes')]
+    public function employeprimes(int $id): Response
+    {
+        $repo = $this->getDoctrine()->getRepository(Employer::class);
+        $Employe = $repo->findOneBy(['id' => $id]);
+        $EmployePrimes = $Employe->getPrimes();
+        //dd($EmployersList);
+        return $this->render('gestionemployees/employeprimes.html.twig', [
+            'controller_name' => 'GestionemployeesController',
+            'Employerprimes' => $EmployePrimes,
         ]);
     }
     //Ajouter

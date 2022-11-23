@@ -64,8 +64,13 @@ class GestiondepartementsController extends AbstractController
         $Departement = $em
             ->getRepository(Department::class)
             ->find($id);
-        $em->remove($Departement);
-        $em->flush();
+            try{
+                $em->remove($Departement);
+                $em->flush();}
+                catch(\Exception $e){
+                    $this->addFlash('error', 'Impossible de supprimer ce département');
+                    return $this->redirectToRoute('app_gestiondepartements');
+                }
         return $this->redirectToRoute('app_gestiondepartements');
     }
 }

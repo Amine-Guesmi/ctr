@@ -1,0 +1,39 @@
+{% extends 'base_dashbord.html.twig' %}
+
+{% block title %}Gestion Employes
+{% endblock %}
+
+{% block body %}
+
+	<div class="row">
+    <div class="col-md-4"></div>
+		<div class="col-md-4">
+			<div class="card">
+				<div class="card-header card-header-primary card-header-icon">
+					<div class="card-icon">
+						<i class="fa fa-gift"></i>
+					</div>
+					
+				</div>
+				<div class="card-body">
+					<div
+						class="toolbar"><!--        Here you can write extra buttons/actions for the toolbar              -->
+					</div>
+                    {% for E in Employerprimes %}
+                        <button class="btn btn-info">{{E.description}} | Montant {{E.prime}} DT</button>
+                        <button class="btn btn-danger">Date : {{E.dateAjout | date('d-m-y')}}</button>
+                        <br>
+                    {% endfor %}
+                    <br><a class="text-white" href="{{path('app_gestionemployees')}}" > 
+                    <button class="btn btn-success ">
+												<i class="fa fa-arrow-left"></i> Retourner
+											</button>
+                                            </a>
+				</div>
+				<!-- end content-->
+			</div>
+			<!--  end card  -->
+		</div>
+	{% endblock %}
+
+

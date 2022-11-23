@@ -80,8 +80,14 @@ class GestionchauffeurController extends AbstractController
         $Chauffeur = $em
             ->getRepository(Chauffeur::class)
             ->find($id);
-        $em->remove($Chauffeur);
-        $em->flush();
+            try{
+                $em->remove($Chauffeur);
+                $em->flush();
+            }catch(\Exception $e){
+                //$this->addFlash('error', 'Impossible de supprimer ce chauffeur');
+                return $this->redirectToRoute('app_gestionchauffeur');
+            }
+            //$this->addFlash('success', 'Chauffeur supprimé avec succès');
         return $this->redirectToRoute('app_gestionchauffeur');
     }
 }

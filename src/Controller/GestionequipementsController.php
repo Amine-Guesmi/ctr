@@ -79,8 +79,12 @@ class GestionequipementsController extends AbstractController
         $Equipement = $em
             ->getRepository(Equipement::class)
             ->find($id);
-        $em->remove($Equipement);
-        $em->flush();
+            try{
+                $em->remove($Equipement);
+                $em->flush();}catch(\Exception $e){
+                    $this->addFlash('error', 'Impossible de supprimer cet équipement');
+                    return $this->redirectToRoute('app_gestionequipements');
+                }
         return $this->redirectToRoute('app_gestionequipements');
     }
 }

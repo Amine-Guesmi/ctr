@@ -143,8 +143,13 @@ class GestionuserController extends AbstractController
             $this->addFlash('error', 'Vous ne pouvez pas supprimer un administrateur');
             return $this->redirectToRoute('app_gestionuser');
         }
-        $em->remove($User);
-        $em->flush();
+        try{
+            $em->remove($User);
+            $em->flush();
+            $this->addFlash('success', 'Utilisateur supprimé avec succès');
+        }catch(\Exception $e){
+            $this->addFlash('error', 'Erreur lors de la suppression');
+        }
         return $this->redirectToRoute('app_gestionuser');
     }
     public function AjoutUtilisateurFORM(Request $req)

@@ -64,8 +64,13 @@ class GestionprimesController extends AbstractController
          $Prime = $em
              ->getRepository(Prime::class)
              ->find($id);
-         $em->remove($Prime);
-         $em->flush();
+             try{
+                    $em->remove($Prime);
+                    $em->flush();
+             }catch(\Exception $e){
+                 $this->addFlash('error', 'Impossible de supprimer cette prime');
+                 return $this->redirectToRoute('app_gestionprimes');
+             }
          return $this->redirectToRoute('app_gestionprimes');
      }
 }

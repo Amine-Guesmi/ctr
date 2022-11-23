@@ -48,7 +48,7 @@ class Employer
     #[ORM\ManyToOne(targetEntity: Department::class, inversedBy: 'Employers')]
     private $department;
 
-    #[ORM\OneToMany(mappedBy: 'Employers', targetEntity: Prime::class)]
+    #[ORM\OneToMany(mappedBy: 'Employers', targetEntity: Prime::class,fetch: "EAGER")]
     private $primes;
 /*
     public function __construct()
