@@ -43,12 +43,7 @@
 					<div class="form-group bmd-form-group">
 						<label for="examplePassword" class="bmd-label-floating">
 							Mot de pass *</label>
-							<input type="password" name="userpassword" class="form-control" required="true">
-					</div>
-					<div class="form-group bmd-form-group">
-						<label for="examplePassword1" class="bmd-label-floating">
-							Confirmer Mot de pass *</label>
-						<input type="password" class="form-control" id="examplePassword1" required="true" equalto="#examplePassword" name="password_confirmation" aria-required="true">
+							{{ form_row(formedituser.password, {'attr' : {'class':'form-control','required':'true'}}) }}
 					</div>
 					<div class="form-group bmd-form-group">
 						<label for="exampleEmail" class="bmd-label-floating">
@@ -57,10 +52,29 @@
 					</div>
           <div class="select" >
 		  <select name="SelectUserRole" value={{oldrole}} id="OldRole">
-			<option value="ROLE_ADMIN">Administrateur</option>
-			<option value="ROLE_RESPONSABLE_RH">Responsable RH</option>
-			<option value="ROLE_RESPONSABLE_LOGISTIQUE">Responsable Logistique</option>
-			<option value="ROLE_RESPONSABLE_STOCK">Responsable Stock</option> 
+		  {% if oldrole == 'ROLE_ADMIN' %}
+			<option value="ROLE_ADMIN" selected="true">Administrateur</option>
+		  {% else %}
+		  	<option value="ROLE_ADMIN">Administrateur</option>
+		  {% endif %}
+
+		  {% if (oldrole == 'ROLE_RESPONSABLE_RH') %}
+			<option value="ROLE_RESPONSABLE_RH" selected="true">Responsable RH</option>
+		  {% else %}
+		  	<option value="ROLE_RESPONSABLE_RH">Responsable RH</option>
+		  {% endif %}
+
+		  {% if (oldrole == 'ROLE_RESPONSABLE_LOGISTIQUE') %}
+			<option value="ROLE_RESPONSABLE_LOGISTIQUE" selected="true">Responsable Logistique</option>
+		  {% else %}
+		  	<option value="ROLE_RESPONSABLE_LOGISTIQUE">Responsable Logistique</option>
+		  {% endif %}
+
+		  {% if (oldrole == 'ROLE_RESPONSABLE_STOCK') %}
+			<option value="ROLE_RESPONSABLE_STOCK" selected="true">Responsable Stock</option> 
+		  {% else %}
+		  	<option value="ROLE_RESPONSABLE_STOCK">Responsable Stock</option> 
+		  {% endif %}
 		  </select>
 		  <div class="col-lg-5 col-md-6 col-sm-3">
 		   {{ form_row(formedituser.roles, {'attr' : {'placeholder':'Choisire Role','class':'selectpicker ','data-style':'select-with-transition' ,'data-size':'7','hidden':'true'}}) }}

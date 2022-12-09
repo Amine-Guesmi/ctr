@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\UpdateUserType;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class GestionuserController extends AbstractController
 {
 
@@ -84,10 +85,16 @@ class GestionuserController extends AbstractController
         ]);
     }
     #[Route('/gestionuser/modifierutilisateur/{id}', name: 'ModifierUser')]
-    public function ModifierUser(User $User, Request $req,int $id)
-{   $oldimage=$User->getImage();
+    public function ModifierUser(User $User, Request $req,int $id, UserPasswordHasherInterface $passwordHasher)
+{   $em = $this->getDoctrine()->getManager();
+    $User = $em->getRepository(User::class)->find($id);
+    //DD($User);
+    //DD($User->getRoles()[0]);
+    $oldimage=$User->getImage();
     $oldcv=$User->getCvFile();
+    //DD($User->getRoles());
     $oldrole=$User->getRoles()[0];
+    
     $oldpassword=$User->getPassword();
 
     $formedit = $this->createForm(UpdateUserType::class, $User);
@@ -114,11 +121,24 @@ class GestionuserController extends AbstractController
         else{
             $User->setCvFile($oldcv);
         }
-        $User->setRoles([$req->request->get("SelectUserRole")]);
-        //
-        if($req->request->get("userpassword") != $oldrole){
-            $User->setPassword($req->request->get("userpassword"));
+        if($req->request->get("SelectUserRole") != $oldrole){
+            $User->setRoles([$req->request->get("SelectUserRole")]);
         }
+        else{
+            $User->setRoles([$oldrole]);
+        }
+        //$User->setRoles([$req->request->get("SelectUserRole")]);
+        //
+        if($formedit->get('password')->getData() != $oldpassword){
+            $User->setPassword($passwordHasher->hashPassword($User, $formedit->get('password')->getData()));
+        }
+        else{
+            $User->setPassword($oldpassword);
+        }
+        //$passwordHasher->hashPassword($User, $req->request->get("userpassword"));
+        //$User->setPassword($req->request->get("userpassword"));
+       // $User->setPassword($passwordHasher);
+        
         $this->getDoctrine()->getManager()->persist($User);
         $this->getDoctrine()->getManager()->flush();   
         

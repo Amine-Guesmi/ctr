@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+
 class UpdateUserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -36,6 +38,7 @@ class UpdateUserType extends AbstractType
                 ->add('tel',NumberType::class,['label' => false])
                 ->add('image',FileType::class,array('data_class' => null,'required' => false,'mapped'=> false),['label' => false])
                 ->add('cvFile',FileType::class,array('data_class' => null,'required' => false,'mapped'=> false),['label' => false])
+                ->add('password',PasswordType::class,['label' => false])
             ;
         }
     }
